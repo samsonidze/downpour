@@ -13,6 +13,6 @@ Plain HTML, CSS and JavaScript, nothing to build. Open `index.html`.
 
 Companion to [wind-animation](https://github.com/samsonidze/wind-animation).
 
-Sounds: [rain](https://pixabay.com/users/feedthestraycats/) and [thunderstorm](https://pixabay.com/users/evanaeva/) from Pixabay, re-encoded to mono 96k to keep the repo small.
+Sounds: [rain](https://pixabay.com/users/soundreality/) and [thunderstorm](https://pixabay.com/users/evanaeva/) from Pixabay, re-encoded to mono 96k to keep the repo small.
 
 No background photo in the repo yet; drop a `bg.jpg` next to `index.html` (a night street with some lights works best).
