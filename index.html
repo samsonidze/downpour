@@ -7,7 +7,8 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <audio src="rain.mp3" id="rain-sound" loop></audio>
+    <audio src="rain.mp3" id="rain-sound" loop preload="auto"></audio>
+    <audio src="thunder.mp3" id="thunder-sound" preload="auto"></audio>
     <canvas id="canvas"></canvas>
 
     <div class="controls" id="controls">
@@ -16,9 +17,9 @@
         <label><input type="checkbox" id="lightning" checked> Lightning</label>
         <label><input type="checkbox" id="follow" checked> Wind follows mouse</label>
     </div>
-    <p class="hint">click for sound · H hides the controls</p>
+    <p class="hint"><span class="sound-off">click for sound</span><span class="sound-on">click to mute</span> · H hides the controls</p>
 
-    <script src="script.js"></script>
     <script src="audio.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
