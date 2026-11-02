@@ -41,3 +41,8 @@ canvas {
     user-select: none;
 }
 @media (max-width: 600px) { .hint { display: none; } }
+
+.hint .sound-on { display: none; }
+body.sound-on .hint .sound-on { display: inline; }
+body.sound-on .hint .sound-off { display: none; }
+.controls input[type="range"]:disabled { opacity: 0.5; }

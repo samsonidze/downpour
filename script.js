@@ -42,6 +42,7 @@ let mouseWind = null;
 
 let flash = 0;                   // brightness of the current lightning, 0..1
 let nextFlash = performance.now() + 2000;
+let lastFlash = -Infinity;
 
 function random(min, max) {
     return min + Math.random() * (max - min);
@@ -112,9 +113,12 @@ function update(dt, now) {
     }
 
     if (lightningInput.checked && !reduceMotion && now >= nextFlash) {
+        const secondFlash = now - lastFlash < 400;
         flash = random(0.5, 1);
-        // sometimes a quick second flash, otherwise wait a while
-        nextFlash = now + (Math.random() < 0.3 ? random(80, 200) : random(4000, 14000));
+        // thunder for the main strike; a quick second flicker shares its thunder
+        if (!secondFlash && typeof playThunder === "function") playThunder(flash);
+        lastFlash = now;
+        nextFlash = now + (Math.random() < 0.3 ? random(80, 200) : random(5000, 16000));
     }
     flash = Math.max(0, flash - dt * 4);
 }
@@ -160,12 +164,17 @@ function draw() {
 }
 
 let last = performance.now();
+let lastSliderSync = 0;
 function animate(now) {
     // cap dt so coming back to a background tab doesn't teleport everything
     const dt = Math.min(0.05, (now - last) / 1000);
     last = now;
     update(dt, now);
     draw();
+    if (followInput.checked && (now - lastSliderSync) > 150) {
+        windInput.value = wind.toFixed(2);
+        lastSliderSync = now;
+    }
     requestAnimationFrame(animate);
 }
 requestAnimationFrame(animate);
@@ -178,11 +187,21 @@ windInput.addEventListener("input", () => {
 });
 
 window.addEventListener("mousemove", (e) => {
-    if (!followInput.checked) return;
+    if (!followInput.checked || e.target.closest(".controls")) return;
     mouseWind = (e.clientX / width - 0.5) * 2;    // left edge -1, right edge 1
-    windInput.value = mouseWind.toFixed(2);
 });
 window.addEventListener("mouseleave", () => mouseWind = null);
+
+function syncFollow() {
+    windInput.disabled = followInput.checked;
+    if (!followInput.checked) {
+        mouseWind = null;
+        targetWind = wind;
+        windInput.value = wind.toFixed(2);
+    }
+}
+followInput.addEventListener("change", syncFollow);
+syncFollow();
 
 window.addEventListener("keydown", (e) => {
     if (e.key === "h" || e.key === "H") controls.classList.toggle("hidden");
