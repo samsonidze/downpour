@@ -1,0 +1,43 @@
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html, body { height: 100%; overflow: hidden; }
+
+body {
+    background: #0b0f16 url('bg.jpg') no-repeat center center fixed;
+    background-size: cover;
+    color: #cbd3dd;
+    font: 14px system-ui, sans-serif;
+}
+
+canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.controls {
+    position: fixed;
+    left: 16px;
+    bottom: 16px;
+    padding: 12px 14px;
+    display: grid;
+    gap: 8px;
+    background: rgba(10, 14, 20, 0.65);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 8px;
+    backdrop-filter: blur(6px);
+}
+.controls.hidden { display: none; }
+.controls label { display: flex; align-items: center; gap: 10px; }
+.controls input[type="range"] { width: 140px; accent-color: #7fb1e3; margin-left: auto; }
+
+.hint {
+    position: fixed;
+    right: 16px;
+    bottom: 16px;
+    font-size: 12px;
+    color: #6b7786;
+    user-select: none;
+}
+@media (max-width: 600px) { .hint { display: none; } }
